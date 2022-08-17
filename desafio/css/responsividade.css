@@ -1,0 +1,57 @@
+@media (max-width:450px){
+    body{
+        flex-wrap: wrap;
+    }
+    h1{
+        width: 60vw;
+        height: 38vw;
+        left: 18vw;
+        top:2vh
+    }
+    hr{
+        display: none;
+    }
+    main{
+        margin-top: 20vw;
+    }
+    section{
+        padding-top: 60px;
+        flex-direction: column;
+    }
+    .esquerda{
+        justify-content: space-between;
+    }
+    .esquerda div label{
+        font-size: 16px;
+    }
+    #nick{
+        width: 76vw;
+    }
+    #intervalo{
+        width: 76vw;;
+    }
+    #comecar{
+        margin-top: 15%;
+    }
+    .direita{
+        padding-bottom: 50px;
+    }
+    .direita p{
+        width: auto;
+        font-size: 20px;
+        line-height: 23px;
+    }
+    .nome{
+        padding: 1rem;
+    }
+    .direita div label{
+        font-size:16px;
+    }
+    #numero{
+        width: 76vw;
+    }
+    #jogar{
+        margin-bottom: 80px;
+    }
+
+}
