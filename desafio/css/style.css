@@ -33,6 +33,7 @@ h1{
     border-radius: 20px;
 }
 main{
+    max-width: 1084px;
     width: 84vw;
     height: fit-content;
     background-color: var(--branco);
