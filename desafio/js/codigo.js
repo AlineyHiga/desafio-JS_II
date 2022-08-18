@@ -14,95 +14,104 @@ const NumAleatorio=(n)=>Math.floor(Math.random() * (n+1)) + 1;
 //n vai deixar passar se n tiver nada escrito no input do número e se ele for maior do que o intervalo
 const numInvalido=(num,interv)=>{
     if(num==' ' || num>interv || num<1){
-        return  true    
+        return  true  ;  
     }
     else{
-        return false
+        return false;
     }
+}
+
+//verificar se o jogo terminou
+const VerificarFimJogo=(cont,numAdivinhar,interv)=>{
+    //enquanto o usuario tiver tentativas, ele vai chamar a função de comparação
+    if(cont!=0){
+        CompararNum(numAdivinhar,interv);
+        return;
+    }
+    //apertar de novo o botão jogo, vai resetar a página, quando n tiver mais tentativas
+    else{
+        window.location.reload();
+    }    
 }
 
 //função quando é se clica o botão começar
 const Comecar=()=>{
-    let nome=inputNome.value
+    let nome=inputNome.value;
     let numAdivinhar=0; 
     let interv=0;
     
     
     //verificação do nome, n vai deixar passar espaço em branco e números
     if(nome==' '){
-        alert("nome inválido!")
+        alert("nome inválido!");
         return ;
     }
     
     //escrever nos espaços específicados
-    tentativa.innerHTML=`Você ainda tem ${contTentativa} tentativas`
-    outputNome.innerHTML=`Olá <b>${nome}</b>, vamos jogar!<br> De acordo com a opçao de intervalo que você escolheu, descubra o número.`
+    tentativa.innerHTML=`Você ainda tem ${contTentativa} tentativas`;
+    outputNome.innerHTML=`Olá <b>${nome}</b>, vamos jogar!<br> De acordo com a opçao de intervalo que você escolheu, descubra o número.`;
    
     //identificar o intervalo e gerar um numero para a adivinhação do game
     switch(intervalo.value){
         case '2':
-            interv=100
+            interv=100;
             numAdivinhar=NumAleatorio(interv);    
             break;
         case '3':
-            interv=200
+            interv=200;
             numAdivinhar=NumAleatorio(interv);
             break;
         default:
-            interv=10
+            interv=10;
             numAdivinhar=NumAleatorio(interv);
     }
 
     //identificar quando o usuário clica no botão jogar e retorna a cont
-    botaoJogar.addEventListener('click',()=>{
-        //enquanto o usuario tiver tentativas, ele vai chamar a função de comparação
-        if(contTentativa!=0){
-            CompararNum(numAdivinhar,interv)
-            return
-        }
-        //apertar de novo o botão jogo, vai resetar a página, quando n tiver mais tentativas
-        else{
-            window.location.reload();
-        }       
-    })         
+    botaoJogar.addEventListener('click',()=>{VerificarFimJogo(contTentativa,numAdivinhar,interv)});         
+}
+
+//vai contar as tentativas que o usuário ainda tem
+const ContadorTentativas=(cont,num)=>{
+    cont--;
+    console.log(cont);
+    if (cont!=0) {
+        tentativa.innerHTML=`Você ainda tem ${cont} tentativas`;
+        return cont;
+    }
+    else{  
+        resultado.innerHTML='Você não conseguiu adivinhar' ;    
+        tentativa.innerHTML=`Você não tem mais tentativas, o número sorteado foi ${num}`;
+        botaoJogar.innerHTML='Reiniciar';
+        return cont;
+    }
 }
 
 //função para comparar os dois números(escrito e aleatório)
 const CompararNum=(numAdivinhar, interv)=>{
-    let usuarioNum=inputNumero.value
+    let usuarioNum=inputNumero.value;
     
     if(numInvalido(usuarioNum,interv)){
-        return alert('Você digitou um número inválido!')
+        return alert('Você digitou um número inválido!');
     }
 
     if(usuarioNum<numAdivinhar){
-        resultado.innerHTML='O número é maior'
+        resultado.innerHTML='O número digitado é menor';
     }
     else if(usuarioNum>numAdivinhar){
-        resultado.innerHTML='O número é menor'
+        resultado.innerHTML='O número digitado é maior';
     }
     else{
-        resultado.innerHTML='Parabéns, você conseguiu adivinhar'
+        resultado.innerHTML='Parabéns, você conseguiu adivinhar';
         tentativa.style.display = 'none';
         botaoJogar.innerHTML='Reiniciar';
+        
         //colocar tentativas com valor 0 , para indicar o fim do jogo
-        contTentativa=0
-        return
+        contTentativa=0;
+        return;
     }
     
-    contTentativa--
-
-    if (contTentativa!=0) {
-
-        tentativa.innerHTML=`Você ainda tem ${contTentativa} tentativas`
-        
-    }
-    else{  
-        resultado.innerHTML='Você não conseguiu adivinhar'     
-        tentativa.innerHTML=`Você não tem mais tentativas, o número sorteado foi ${numAdivinhar}`
-        botaoJogar.innerHTML='Reiniciar';
-        return
-    }
+    contTentativa=ContadorTentativas(contTentativa,numAdivinhar);
+    return;
 }
 
 
