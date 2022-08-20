@@ -9,7 +9,7 @@ let result=document.querySelector('#resultado')
 var tentativa=document.querySelector('#tentativas');
 var contTentativa=3
 //função para pegar um número aleatório de 1 a n
-const NumAleatorio=(n)=>Math.floor(Math.random() * (n+1)) + 1;
+const NumAleatorio=(n)=>Math.floor(Math.random() * (n))+1 ;
 
 //n vai deixar passar se n tiver nada escrito no input do número e se ele for maior do que o intervalo
 const numInvalido=(num,interv)=>{
@@ -36,13 +36,14 @@ const VerificarFimJogo=(cont,numAdivinhar,interv)=>{
 
 //função quando é se clica o botão começar
 const Comecar=()=>{
+
     let nome=inputNome.value;
     let numAdivinhar=0; 
     let interv=0;
     
     
     //verificação do nome, n vai deixar passar espaço em branco e números
-    if(nome==' '){
+    if(nome==''){
         alert("nome inválido!");
         return ;
     }
